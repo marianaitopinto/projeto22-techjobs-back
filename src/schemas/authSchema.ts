@@ -8,3 +8,8 @@ export const userSchema = joi.object<userData>({
   linkedin: joi.string().uri().required(),
   type: joi.number().less(3).required(),
 });
+
+export const loginSchema = joi.object({
+  email: joi.string().required(),
+  password: joi.string().min(6).required(),
+});

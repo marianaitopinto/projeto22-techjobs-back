@@ -17,3 +17,21 @@ export async function createUser(data: userData) {
   data.password = await bcrypt.hash(data.password, SALT_ROUNDS);
   await userRepository.insertUser(data);
 }
+
+export async function signIn({ email, password }) {
+  const user = await userRepository.findUserByEmail(email);
+
+  if (!user || !(await bcrypt.compare(password, user.password)))
+    throw new AppError("E-mail or password is incorrect", 401);
+
+  const token = await generateToken(user);
+
+  return token;
+}
+
+async function generateToken(user: users) {
+  const JWT_SECRET = "my_ultra_secret_jwt_key";
+  //FIX ME!!!!!!!!!
+  const token = jwt.sign({ id: user.id }, JWT_SECRET);
+  return token;
+}
