@@ -11,22 +11,23 @@ datasource db {
 }
 
 model users {
-  id       Int    @id @default(autoincrement())
-  type     Int
+  id       Int     @id @default(autoincrement())
   name     String
-  email    String @unique
+  email    String  @unique
   password String
-  linkedin String
+  linkedin String?
+  type     Int
 
   jobs     jobs[]
   user_job user_job[]
 }
 
 model jobs {
-  id        Int      @id @default(autoincrement())
-  companyId Int
-  createdAt DateTime @default(now())
-  status    String
+  id          Int      @id @default(autoincrement())
+  companyId   Int
+  createdAt   DateTime @default(now())
+  description String
+  status      String
 
   user     users      @relation(fields: [companyId], references: [id])
   user_job user_job[]
