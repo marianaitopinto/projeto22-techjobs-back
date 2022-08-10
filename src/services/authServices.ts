@@ -30,8 +30,7 @@ export async function signIn({ email, password }) {
 }
 
 async function generateToken(user: users) {
-  const JWT_SECRET = "my_ultra_secret_jwt_key";
-  //FIX ME!!!!!!!!!
-  const token = jwt.sign({ id: user.id }, JWT_SECRET);
+  const token = jwt.sign({ id: user.id }, (process.env.JWT_SECRET as string));
+  
   return token;
 }
