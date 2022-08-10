@@ -25,7 +25,14 @@ export async function updateJob(jobId, data: jobsData) {
   const user = await userRepository.checkUserExist(data.companyId);
   if (!user) throw new AppError("Register not found!", 404);
 
-  await jobsRepository.updateJob(jobId, data.description, data.status);
+  await jobsRepository.updateJob(jobId, data.jobTitle, data.description, data.status);
+}
+
+export async function getJob(jobId: number) {
+  const job = await jobsRepository.findJobById(jobId);
+  if (!job) throw new AppError("Job not found", 404);
+
+  return job;
 }
 
 function checkIsCompany(id: number) {
@@ -35,4 +42,3 @@ function checkIsCompany(id: number) {
     return;
   }
 }
-

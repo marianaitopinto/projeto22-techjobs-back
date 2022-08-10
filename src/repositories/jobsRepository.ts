@@ -12,12 +12,13 @@ export async function createJob(data: jobsData) {
 
 export async function updateJob(
   id: number,
+  jobTitle: string,
   description: string,
   status: string
 ) {
   return prisma.jobs.update({
     where: { id },
-    data: { description, status },
+    data: { jobTitle, description, status },
   });
 }
 

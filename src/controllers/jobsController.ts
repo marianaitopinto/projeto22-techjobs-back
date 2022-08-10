@@ -21,3 +21,11 @@ export async function updateJob(req: Request, res: Response) {
 
   res.sendStatus(200);
 }
+
+export async function getJobById(req: Request, res: Response) {
+  const { jobId } = req.params;
+
+  const job = await jobsService.getJob(parseInt(jobId));
+
+  res.send(job);
+}

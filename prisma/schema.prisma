@@ -25,6 +25,7 @@ model users {
 model jobs {
   id          Int      @id @default(autoincrement())
   companyId   Int
+  jobTitle    String
   createdAt   DateTime @default(now())
   description String
   status      String
