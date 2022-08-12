@@ -7,25 +7,28 @@ const COMPANY_TYPE = 2;
 
 export type jobsData = Omit<jobs, "id" | "createdAt">;
 
-export async function createJob(data: jobsData) {
-  const user = await userRepository.checkUserExist(data.companyId);
+export async function createJob(userId: number, data: jobsData) {
+  const user = await userRepository.checkUserExist(userId);
   if (!user) throw new AppError("Register not found!", 404);
 
-  checkIsCompany(data.companyId);
+  checkIsCompany(userId);
 
-  console.log(user.type);
-
-  await jobsRepository.createJob(data);
+  await jobsRepository.createJob(userId, data);
 }
 
-export async function updateJob(jobId, data: jobsData) {
+export async function updateJob(jobId: number, data: jobsData, userId: number) {
   const job = await jobsRepository.findJobById(jobId);
-  if (!job) throw new AppError("Job not found", 404)
-  
-  const user = await userRepository.checkUserExist(data.companyId);
+  if (!job) throw new AppError("Job not found", 404);
+
+  const user = await userRepository.checkUserExist(userId);
   if (!user) throw new AppError("Register not found!", 404);
 
-  await jobsRepository.updateJob(jobId, data.jobTitle, data.description, data.status);
+  await jobsRepository.updateJob(
+    jobId,
+    data.jobTitle,
+    data.description,
+    data.status
+  );
 }
 
 export async function getJob(jobId: number) {

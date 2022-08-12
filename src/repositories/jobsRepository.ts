@@ -6,8 +6,15 @@ export async function checkIsCompany(id: number, type: number) {
   return prisma.users.findFirst({ where: { id, type: 2 } });
 }
 
-export async function createJob(data: jobsData) {
-  return prisma.jobs.create({ data });
+export async function createJob(companyId: number, data: jobsData) {
+  return prisma.jobs.create({
+    data: {
+      companyId,
+      jobTitle: data.jobTitle,
+      description: data.description,
+      status: data.status,
+    },
+  });
 }
 
 export async function updateJob(

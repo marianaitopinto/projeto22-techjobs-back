@@ -6,18 +6,20 @@ import { jobsData } from "../services/jobsServices";
 import * as jobsService from "../services/jobsServices.js";
 
 export async function createJob(req: Request, res: Response) {
+  const userId = res.locals.user.id;
   const data: jobsData = req.body;
 
-  await jobsService.createJob(data);
+  await jobsService.createJob(userId, data);
 
   res.sendStatus(201);
 }
 
 export async function updateJob(req: Request, res: Response) {
+  const userId = res.locals.user.id;
   const { jobId } = req.params;
   const data: jobs = req.body;
 
-  await jobsService.updateJob(parseInt(jobId), data);
+  await jobsService.updateJob(parseInt(jobId), data, userId);
 
   res.sendStatus(200);
 }
@@ -28,4 +30,9 @@ export async function getJobById(req: Request, res: Response) {
   const job = await jobsService.getJob(parseInt(jobId));
 
   res.send(job);
+}
+
+export async function getJobByCompany(req: Request, res: Response) {
+  const userId = res.locals.user.id;
+  console.log(userId);
 }
