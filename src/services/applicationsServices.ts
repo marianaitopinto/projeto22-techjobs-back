@@ -68,6 +68,26 @@ export async function updateApplication(userId: number, data: user_job) {
   await applicationsRepository.updateApplication(application.id, data.status);
 }
 
+export async function leaveApplication(userId: number, jobId: number) {
+  const user = await userRepository.checkUserExist(userId);
+  if (!user) throw new AppError("User not found!", 404);
+
+  const job = await jobsRepository.findJobById(jobId);
+  if (!job) throw new AppError("Job not found!", 404);
+
+  checkIsCandidate(user.type);
+
+  const application = await applicationsRepository.getApplication(
+    userId,
+    jobId
+  );
+
+  if (!application)
+    throw new AppError("The user have not applied for this job!", 401);
+
+  await applicationsRepository.leaveApplication(application.id);
+}
+
 function checkIsCandidate(type: number) {
   if (type !== USER_TYPE) {
     throw new AppError("Unauthorized! Only candidates can apply.", 401);

@@ -17,7 +17,10 @@ export async function getApplication(req: Request, res: Response) {
   const userId = res.locals.user.id;
   const { jobId } = req.params;
 
-  const application = await applicationsServices.getApplication(userId, parseInt(jobId));
+  const application = await applicationsServices.getApplication(
+    userId,
+    parseInt(jobId)
+  );
 
   res.send(application);
 }
@@ -26,7 +29,16 @@ export async function updateApplication(req: Request, res: Response) {
   const userId = res.locals.user.id;
   const data: user_job = req.body;
 
-  await applicationsServices.updateApplication(userId, data)
+  await applicationsServices.updateApplication(userId, data);
+
+  res.sendStatus(200);
+}
+
+export async function leaveApplication(req: Request, res: Response) {
+  const userId = res.locals.user.id;
+  const { jobId } = req.params;
+
+  await applicationsServices.leaveApplication(userId, parseInt(jobId));
 
   res.sendStatus(200);
 }

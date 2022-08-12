@@ -23,6 +23,13 @@ export async function getApplication(userId: number, jobId: number) {
 export async function updateApplication(id: number, status: string) {
   return prisma.user_job.update({
     where: { id },
-    data: { status},
+    data: { status },
+  });
+}
+
+export async function leaveApplication(id: number) {
+  return prisma.user_job.update({
+    where: { id },
+    data: { status: "abdicated" },
   });
 }
