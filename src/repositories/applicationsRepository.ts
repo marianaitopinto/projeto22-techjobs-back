@@ -11,14 +11,18 @@ export async function createApplication(userId: number, data: applicationData) {
   });
 }
 
-export async function getApplication(
-  userId: number,
-  jobId: number
-) {
+export async function getApplication(userId: number, jobId: number) {
   return prisma.user_job.findFirst({
     where: {
       cadidateId: userId,
       jobId,
     },
+  });
+}
+
+export async function updateApplication(id: number, status: string) {
+  return prisma.user_job.update({
+    where: { id },
+    data: { status},
   });
 }
