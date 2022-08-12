@@ -33,6 +33,9 @@ export async function getJobById(req: Request, res: Response) {
 }
 
 export async function getJobByCompany(req: Request, res: Response) {
-  const userId = res.locals.user.id;
-  console.log(userId);
+  const { companyId } = req.params;
+
+  const jobs = await jobsService.getJobsByCompany(parseInt(companyId));
+
+  res.send(jobs);
 }

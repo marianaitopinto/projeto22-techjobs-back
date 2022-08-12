@@ -32,3 +32,7 @@ export async function updateJob(
 export async function findJobById(id: number) {
   return prisma.jobs.findFirst({ where: { id } });
 }
+
+export async function findJobsByCompany(id: number) {
+  return prisma.jobs.findMany({ where: { companyId: id } });
+}

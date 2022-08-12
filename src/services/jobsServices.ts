@@ -23,6 +23,8 @@ export async function updateJob(jobId: number, data: jobsData, userId: number) {
   const user = await userRepository.checkUserExist(userId);
   if (!user) throw new AppError("Register not found!", 404);
 
+  isUserIdSameCompanyId(data.companyId, userId);
+
   await jobsRepository.updateJob(
     jobId,
     data.jobTitle,
@@ -38,8 +40,26 @@ export async function getJob(jobId: number) {
   return job;
 }
 
+export async function getJobsByCompany(companyId: number) {
+  const company = await userRepository.checkUserExist(companyId);
+  if (!company) throw new AppError("Company not found!", 404);
+
+  const jobs = await jobsRepository.findJobsByCompany(companyId);
+  if (!jobs) throw new AppError("Registers not found!", 404);
+
+  return(jobs);
+}
+
 function checkIsCompany(id: number) {
   if (id !== COMPANY_TYPE) {
+    throw new AppError("Unauthorized!", 401);
+  } else {
+    return;
+  }
+}
+
+function isUserIdSameCompanyId(companyId: number, userId: number) {
+  if (companyId !== userId) {
     throw new AppError("Unauthorized!", 401);
   } else {
     return;
