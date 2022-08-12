@@ -1,12 +1,13 @@
 import { Router } from "express";
 
-import { createNewApplication } from "../controllers/applicationsController.js";
+import { createNewApplication, getApplication } from "../controllers/applicationsController.js";
 import { validateToken } from "../middlewares/tokenMiddleware.js";
 import { validateSchemaMiddleware } from "../middlewares/schemaMiddleware.js";
 import { userSchema, loginSchema } from "../schemas/authSchema.js";
 
-const userJobRouter = Router();
+const applicationsRouter = Router();
 
-userJobRouter.post("/application", validateToken, createNewApplication);
+applicationsRouter.post("/application", validateToken, createNewApplication);
+applicationsRouter.get("/application/:jobId", validateToken, getApplication);
 
-export default userJobRouter;
+export default applicationsRouter;

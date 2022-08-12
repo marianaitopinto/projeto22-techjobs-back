@@ -11,7 +11,7 @@ export async function createApplication(userId: number, data: applicationData) {
   });
 }
 
-export async function checkCandidateAlreadyApplied(
+export async function getApplication(
   userId: number,
   jobId: number
 ) {

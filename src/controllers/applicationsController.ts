@@ -11,3 +11,12 @@ export async function createNewApplication(req: Request, res: Response) {
 
   res.sendStatus(201);
 }
+
+export async function getApplication(req: Request, res: Response) {
+  const userId = res.locals.user.id;
+  const { jobId } = req.params;
+
+  const application = await applicationsServices.getApplication(userId, parseInt(jobId));
+
+  res.send(application);
+}

@@ -16,14 +16,35 @@ export async function createNewApplication(userId, data: applicationData) {
   if (!job) throw new AppError("Job not found!", 404);
 
   checkIsCandidate(user.type);
-  const application = await applicationsRepository.checkCandidateAlreadyApplied(
+  const application = await applicationsRepository.getApplication(
     userId,
     data.jobId
   );
+  console.log(application);
   if (application)
     throw new AppError("You have already applied for this job!", 401);
 
   await applicationsRepository.createApplication(userId, data);
+}
+
+export async function getApplication(userId: number, jobId: number) {
+  const user = await userRepository.checkUserExist(userId);
+  if (!user) throw new AppError("Register not found!", 404);
+
+  const job = await jobsRepository.findJobById(jobId);
+  if (!job) throw new AppError("Job not found!", 404);
+
+  checkIsCandidate(user.type);
+
+  const application = await applicationsRepository.getApplication(
+    userId,
+    jobId
+  );
+
+  if (!application)
+    throw new AppError("You have not applied for this job!", 401);
+
+  return application;
 }
 
 function checkIsCandidate(type: number) {

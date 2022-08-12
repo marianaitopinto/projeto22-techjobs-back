@@ -2,12 +2,12 @@ import { Router } from "express";
 
 import authRouter from "./authRouter.js";
 import jobsRouter from "./jobsRouter.js";
-import userJobRouter from "./applicationsRouter.js";
+import applicationsRouter from "./applicationsRouter.js";
 
 const routers = Router();
 
 routers.use(authRouter);
 routers.use(jobsRouter);
-routers.use(userJobRouter);
+routers.use(applicationsRouter);
 
 export default routers;
