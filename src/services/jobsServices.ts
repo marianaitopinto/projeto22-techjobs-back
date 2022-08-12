@@ -11,7 +11,7 @@ export async function createJob(userId: number, data: jobsData) {
   const user = await userRepository.checkUserExist(userId);
   if (!user) throw new AppError("Register not found!", 404);
 
-  checkIsCompany(userId);
+  checkIsCompany(user.type);
 
   await jobsRepository.createJob(userId, data);
 }
