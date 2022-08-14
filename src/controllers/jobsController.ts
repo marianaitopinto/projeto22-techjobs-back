@@ -39,3 +39,9 @@ export async function getJobByCompany(req: Request, res: Response) {
 
   res.send(jobs);
 }
+
+export async function getAllJobsOpened(req: Request, res: Response) {
+  const jobs = await jobsService.getJobsOpened();
+  console.log(jobs)
+  res.send(jobs);
+}

@@ -39,5 +39,8 @@ export async function getAllApplications(id: number) {
     where: {
       cadidateId: id,
     },
+    select: {
+      job: true
+    },
   });
 }

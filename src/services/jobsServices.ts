@@ -47,7 +47,14 @@ export async function getJobsByCompany(companyId: number) {
   const jobs = await jobsRepository.findJobsByCompany(companyId);
   if (!jobs) throw new AppError("Registers not found!", 404);
 
-  return(jobs);
+  return jobs;
+}
+
+export async function getJobsOpened() {
+  const jobs = await jobsRepository.findAllJobsOpened();
+  if (!jobs) throw new AppError("Registers not found!", 404);
+
+  return jobs;
 }
 
 function checkIsCompany(id: number) {

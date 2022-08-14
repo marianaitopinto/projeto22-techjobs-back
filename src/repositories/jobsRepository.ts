@@ -30,9 +30,34 @@ export async function updateJob(
 }
 
 export async function findJobById(id: number) {
-  return prisma.jobs.findFirst({ where: { id } });
+  return prisma.jobs.findFirst({
+    where: { id },
+    select: {
+      companyId: true,
+      jobTitle: true,
+      createdAt: true,
+      description: true,
+      status: true,
+      user: true,
+    }
+  });
 }
 
 export async function findJobsByCompany(id: number) {
   return prisma.jobs.findMany({ where: { companyId: id } });
+}
+
+export async function findAllJobsOpened() {
+  return prisma.jobs.findMany({
+    where: { status: "opened" },
+    select: {
+      id: true,
+      companyId: true,
+      jobTitle: true,
+      createdAt: true,
+      description: true,
+      status: true,
+      user: true,
+    },
+  });
 }
