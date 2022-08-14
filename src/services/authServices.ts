@@ -26,11 +26,11 @@ export async function signIn({ email, password }) {
 
   const token = await generateToken(user);
 
-  return token;
+  return { token, user };
 }
 
 async function generateToken(user: users) {
-  const token = jwt.sign({ id: user.id }, (process.env.JWT_SECRET as string));
-  
+  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string);
+
   return token;
 }

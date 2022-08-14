@@ -33,3 +33,11 @@ export async function leaveApplication(id: number) {
     data: { status: "abdicated" },
   });
 }
+
+export async function getAllApplications(id: number) {
+  return prisma.user_job.findMany({
+    where: {
+      cadidateId: id,
+    },
+  });
+}

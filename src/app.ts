@@ -8,6 +8,7 @@ import handleError from "./middlewares/errorHandlerMiddleware.js";
 const app = express();
 
 app.use(express.json());
+app.use(cors())
 app.use(routers);
 app.use(handleError);
 

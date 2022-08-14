@@ -88,10 +88,22 @@ export async function leaveApplication(userId: number, jobId: number) {
   await applicationsRepository.leaveApplication(application.id);
 }
 
+export async function getAllApplications(userId: number) {
+  const user = await userRepository.checkUserExist(userId);
+  if (!user) throw new AppError("User not found!", 404);
+
+  checkIsCandidate(user.type);
+  console.log('o candadato é ', user.id)
+  const applications = await applicationsRepository.getAllApplications(user.id);
+
+  return applications;
+}
+
 function checkIsCandidate(type: number) {
   if (type !== USER_TYPE) {
     throw new AppError("Unauthorized! Only candidates can apply.", 401);
   } else {
+    console.log("É candidato!");
     return;
   }
 }

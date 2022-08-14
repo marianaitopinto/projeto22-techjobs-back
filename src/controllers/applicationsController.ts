@@ -42,3 +42,14 @@ export async function leaveApplication(req: Request, res: Response) {
 
   res.sendStatus(200);
 }
+
+export async function getAllAplications(req: Request, res: Response) {
+  console.log('entrei')
+  const userId = res.locals.user.id;
+  console.log(userId);
+  const applications = await applicationsServices.getAllApplications(
+    userId
+  );
+console.log('aqui', applications)
+  res.send(applications);
+}
