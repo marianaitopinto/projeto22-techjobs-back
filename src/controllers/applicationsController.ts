@@ -44,12 +44,22 @@ export async function leaveApplication(req: Request, res: Response) {
 }
 
 export async function getAllAplications(req: Request, res: Response) {
-  console.log('entrei')
+  console.log("entrei");
   const userId = res.locals.user.id;
   console.log(userId);
-  const applications = await applicationsServices.getAllApplications(
-    userId
+  const applications = await applicationsServices.getAllApplications(userId);
+  console.log("aqui", applications);
+  res.send(applications);
+}
+
+export async function getApplicationsByJobId(req: Request, res: Response) {
+  const userId = res.locals.user.id;
+  const { jobId } = req.params;
+
+  const applications = await applicationsServices.getApplicationsByJobId(
+    userId,
+    parseInt(jobId)
   );
-console.log('aqui', applications)
+  console.log("aqui", applications);
   res.send(applications);
 }

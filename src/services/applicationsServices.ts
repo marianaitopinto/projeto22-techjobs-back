@@ -93,8 +93,18 @@ export async function getAllApplications(userId: number) {
   if (!user) throw new AppError("User not found!", 404);
 
   checkIsCandidate(user.type);
-  console.log('o candadato é ', user.id)
+  console.log("o candadato é ", user.id);
   const applications = await applicationsRepository.getAllApplications(user.id);
+
+  return applications;
+}
+
+export async function getApplicationsByJobId(companyId: number, jobId: number) {
+  const user = await userRepository.checkUserExist(companyId);
+  if (!user) throw new AppError("Company not found!", 404);
+
+  checkCompanyOwnsJob(user.type, companyId, user.id);
+  const applications = await applicationsRepository.getAllApplicationsByJobId(jobId);
 
   return applications;
 }

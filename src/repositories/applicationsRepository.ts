@@ -40,7 +40,18 @@ export async function getAllApplications(id: number) {
       cadidateId: id,
     },
     select: {
-      job: true
+      job: true,
+    },
+  });
+}
+
+export async function getAllApplicationsByJobId(jobId: number) {
+  return prisma.user_job.findMany({
+    where: {
+      jobId,
+    },
+    select: {
+      user: true,
     },
   });
 }
