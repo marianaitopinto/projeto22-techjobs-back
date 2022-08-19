@@ -4,5 +4,11 @@
       "module": "es6",
       "moduleResolution": "node",
       "outDir": "dist"
+    },
+    "include": [
+      "src/server.ts"
+    ],
+    "ts-node": {
+      "esm": true
     }
   }
