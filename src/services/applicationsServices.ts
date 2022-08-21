@@ -90,7 +90,7 @@ export async function getAllApplications(userId: number) {
   const user = await userRepository.checkUserExist(userId);
   if (!user) throw new AppError("User not found!", 404);
 
-  checkIsCandidate(user.type);
+  //checkIsCandidate(user.type);
   console.log("o candadato é ", user.id);
   const applications = await applicationsRepository.getAllApplications(user.id);
 
