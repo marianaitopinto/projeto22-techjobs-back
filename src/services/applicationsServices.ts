@@ -42,8 +42,6 @@ export async function getApplication(userId: number, jobId: number) {
     jobId
   );
 
-  if (!application)
-    throw new AppError("You have not applied for this job!", 401);
 
   return application;
 }
